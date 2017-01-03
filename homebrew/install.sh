@@ -12,7 +12,30 @@ then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+brew tap caskroom/cask
+
 # Install homebrew packages
-brew install grc coreutils spark
+brew install \
+	brew-cask \
+	grc \
+	coreutils \
+	spark \
+	ansible \
+	gettext \
+	imagemagick \
+	colordiff \
+	ffmpeg \
+	htop \
+	jq \
+	ngrok \
+	openssl \
+	readline \
+	siege \
+	tree \
+	watch
+
+brew cask install virtualbox \
+	vagrant \
+	sublime-text
 
 exit 0

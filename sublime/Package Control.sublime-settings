@@ -1,0 +1,26 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Babel",
+		"Better CoffeeScript",
+		"CTags",
+		"DocBlockr",
+		"Dockerfile Syntax Highlighting",
+		"EJS",
+		"Git",
+		"GitGutter-Edge",
+		"GoTools",
+    "HexViewer",
+		"JavaScriptNext - ES6 Syntax",
+		"JSHint Gutter",
+		"Package Control",
+		"PlainTasks",
+		"RuboCop",
+		"Sass",
+		"SCSS"
+	]
+}
