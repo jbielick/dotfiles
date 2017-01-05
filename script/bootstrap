@@ -138,11 +138,9 @@ install_dotfiles () {
 }
 
 install_sublime_prefs () {
-	for src in $(find -H "$DOTFILES_ROOT/sublime" -maxdepth 2 -name '*.symlink')
-	do
-		dst="$HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/$(basename "${src%.*}")"
-		link_file "$src" "$dst"
-	done
+	info 'installing sublime prefs'
+  ln -s "$DOTFILES_ROOT/sublime" "$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+  success "sublime User dir linked"
 }
 
 setup_gitconfig
