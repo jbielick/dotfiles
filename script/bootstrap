@@ -146,12 +146,24 @@ install_sublime_prefs () {
   rm -rf "$dest/User"
   ln -s "$DOTFILES_ROOT/sublime/User" "$dest"
 
-  success "sublime User dir linked"
+  success "sublime prefs linked"
+}
+
+link_vim_colors () {
+  info 'linking vim colors'
+
+  local dest="$HOME/.vim"
+
+  rm -rf "$dest/colors"
+  ln -s "$DOTFILES_ROOT/vim/colors" "$dest"
+
+  success "vim colors linked"
 }
 
 setup_gitconfig
 install_dotfiles
 install_sublime_prefs
+link_vim_colors
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
