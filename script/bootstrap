@@ -137,8 +137,21 @@ install_dotfiles () {
   done
 }
 
+
+install_sublime_prefs () {
+  info 'installing sublime prefs'
+
+  local dest="$HOME/Library/Application Support/Sublime Text 3/Packages"
+
+  rm -rf "$dest/User"
+  ln -s "$DOTFILES_ROOT/sublime/User" "$dest"
+
+  success "sublime User dir linked"
+}
+
 setup_gitconfig
 install_dotfiles
+install_sublime_prefs
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]

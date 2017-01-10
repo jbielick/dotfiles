@@ -2,3 +2,38 @@ syntax on
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
+
+set number
+set numberwidth=2
+set tabstop=2
+set autoindent
+set expandtab
+set smartindent
+
+" colorscheme monokai
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'git://github.com/airblade/vim-gitgutter.git'
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+Plugin 'fatih/vim-go'
+Plugin 'git://github.com/ctrlpvim/ctrlp.vim.git'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set laststatus=2
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list

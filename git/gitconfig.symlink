@@ -1,33 +1,62 @@
 # Local/private config goes in the include
 [include]
         path = ~/.gitconfig.local
+[user]
+  email = jbielick@gmail.com
+  name = Josh Bielick
 [hub]
-        protocol = https
-[alias]
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
-[color]
-        diff = auto
-        status = auto
-        branch = auto
-        ui = true
-[core]
-        excludesfile = ~/.gitignore
-        editor = vim
-[apply]
-        whitespace = nowarn
-[mergetool]
-        keepBackup = false
-[difftool]
-        prompt = false
+  protocol = https
 [help]
-        autocorrect = 1
+  autocorrect = 1
+[core]
+  excludesfile = /Users/jbielick/.gitignore_global
+  editor = vim
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+[difftool]
+  prompt = false
+[mergetool]
+  keepBackup = false
+[color]
+  diff = auto
+  branch = auto
+  ui = always
+  status = always
+[alias]
+  st = status
+  sh = show
+  chk = checkout
+  cp = cherry-pick
+  conflicts = diff --name-only --diff-filter=U
+  praise = blame
+  graph = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+  alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  recent = ! git reflog | grep moving | awk '{ print $6"\n"$8 }' | grep -v master | head -n 100 | awk '!x[$0]++' | head -n 5
+  co = checkout
+  promote = !$ZSH/bin/git-promote
+  wtf = !$ZSH/bin/git-wtf
+  rank-contributors = !$ZSH/bin/git-rank-contributors
+  count = !git shortlog -sn
 [push]
-        # See `git help config` (search for push.default)
-        # for more information on different options of the below setting.
-        #
-        # Setting to git 2.0 default to suppress warning message
-        default = simple
+  default = simple
+[merge]
+  ff = false
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[pull]
+  default = current
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
+[apply]
+  whitespace = nowarn
