@@ -11,7 +11,7 @@
 [core]
   excludesfile = /Users/jbielick/.gitignore_global
   editor = vim
-  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
 [difftool]
   prompt = false
 [mergetool]
@@ -30,7 +30,7 @@
   praise = blame
   graph = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
   alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
-  recent = ! git reflog | grep moving | awk '{ print $6"\n"$8 }' | grep -v master | head -n 100 | awk '!x[$0]++' | head -n 5
+  recent = ! git reflog | grep moving | awk '{ print $6"\n"$8 }' | grep -v master | head -n 100 | awk '!x[$0]++' | head -n 8
   co = checkout
   promote = !$ZSH/bin/git-promote
   wtf = !$ZSH/bin/git-wtf
