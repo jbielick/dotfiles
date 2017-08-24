@@ -7,20 +7,22 @@
 	[
 		"Babel",
 		"Better CoffeeScript",
+		"Color Highlighter",
 		"CTags",
 		"DocBlockr",
 		"Dockerfile Syntax Highlighting",
 		"EJS",
 		"Git",
-		"GitGutter-Edge",
+		"GitGutter",
 		"GoTools",
 		"HexViewer",
 		"JavaScriptNext - ES6 Syntax",
-		"JSHint Gutter",
+		"LESS",
 		"Package Control",
 		"PlainTasks",
 		"RuboCop",
 		"Sass",
-		"SCSS"
+		"SCSS",
+		"Tagger Script Syntax"
 	]
 }
