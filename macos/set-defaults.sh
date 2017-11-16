@@ -22,8 +22,11 @@ defaults write com.apple.finder AppleShowAllFiles YES
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
+# initial delay for key repeat
+defaults write NSGlobalDomain InitialKeyRepeat -int 20
+
 # Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true

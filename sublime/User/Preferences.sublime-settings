@@ -20,7 +20,11 @@
 		"node_modules",
 		"public/assets",
 		"coverage",
-		"log"
+		"log",
+		"__pycache__",
+		".nyc_output",
+		".idea",
+		".vagrant"
 	],
 	"font_face": "Menlo",
 	"font_size": 12.0,
