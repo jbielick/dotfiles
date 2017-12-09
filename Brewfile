@@ -7,7 +7,7 @@ brew 'ack'
 brew 'ansible'
 brew 'colordiff'
 brew 'coreutils'
-brew 'ffmpeg'
+brew 'ffmpeg', args: %w(with-libvpx with-libvorbis with-fdk-aac with-opus)
 brew 'gettext'
 brew 'go'
 brew 'grc'
