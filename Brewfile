@@ -24,7 +24,6 @@ brew 'siege'
 brew 'tree'
 brew 'watch'
 brew 'wget'
-# brew 'yarn'
 
 cask '1password'
 cask 'firefox'
