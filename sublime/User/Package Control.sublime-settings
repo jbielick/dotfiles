@@ -5,6 +5,7 @@
 	],
 	"installed_packages":
 	[
+		"API Blueprint",
 		"Babel",
 		"Better CoffeeScript",
 		"Color Highlighter",
@@ -13,15 +14,21 @@
 		"Dockerfile Syntax Highlighting",
 		"EJS",
 		"Git",
+		"GitGutter",
 		"GoTools",
 		"HexViewer",
 		"JavaScriptNext - ES6 Syntax",
 		"LESS",
+		"MarkdownLivePreview",
 		"Package Control",
 		"PlainTasks",
+		"Pug",
 		"RuboCop",
 		"Sass",
 		"SCSS",
-		"Tagger Script Syntax"
+		"SideBarEnhancements",
+		"Tagger Script Syntax",
+		"Terraform",
+		"TOML"
 	]
 }

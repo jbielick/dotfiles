@@ -1,11 +1,15 @@
 {
-	"atomic_save": false,
 	"auto_indent": true,
 	"cheet_codez": true,
 	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"detect_indentation": false,
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
+	"file_exclude_patterns":
+	[
+		"*.tfstate.*.backup",
+		".DS_Store"
+	],
 	"folder_exclude_patterns":
 	[
 		".rdb",
@@ -24,7 +28,8 @@
 		"__pycache__",
 		".nyc_output",
 		".idea",
-		".vagrant"
+		".vagrant",
+		".terraform"
 	],
 	"font_face": "Menlo",
 	"font_size": 12.0,
