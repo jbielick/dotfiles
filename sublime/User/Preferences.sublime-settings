@@ -8,7 +8,8 @@
 	"file_exclude_patterns":
 	[
 		"*.tfstate.*.backup",
-		".DS_Store"
+		".DS_Store",
+		"*.pyc"
 	],
 	"folder_exclude_patterns":
 	[
@@ -21,10 +22,14 @@
 		".tmp",
 		".bundle",
 		"vendor/bundle",
+		"vendor/github.com",
+		"vendor/golang.org",
+		"vendor/google.golang.org",
 		"node_modules",
 		"public/assets",
 		"coverage",
 		"log",
+		"logs",
 		"__pycache__",
 		".nyc_output",
 		".idea",
@@ -36,6 +41,7 @@
 	"ignored_packages":
 	[
 		"PlainTasks",
+		"TOML",
 		"Vintage"
 	],
 	"rulers":
