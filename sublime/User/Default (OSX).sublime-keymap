@@ -1,4 +1,0 @@
-[
-  { "keys": ["super+ctrl+f"], "command": "copy_path" },
-  { "keys": ["alt+d"], "command": "goto_definition" }
-]
