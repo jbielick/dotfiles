@@ -1,21 +1,198 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # dot
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
 export ZSH=$HOME/.dotfiles
+DOTFILES_ROOT=$(pwd -P)
 
 # Set macOS defaults
 $ZSH/macos/set-defaults.sh
 
-# Install homebrew
-$ZSH/homebrew/install.sh 2>&1
+echo ''
 
-# Upgrade homebrew
-echo "› brew update"
-brew update
+info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
 
-# Install software
-echo "› $ZSH/script/install"
-$ZSH/script/install
+user () {
+  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+setup_gitconfig () {
+  if ! [ -f git/.gitconfig.local.symlink ]
+  then
+    info 'setup gitconfig'
+
+    git_credential='cache'
+    if [ "$(uname -s)" == "Darwin" ]
+    then
+      git_credential='osxkeychain'
+    fi
+
+    user ' - What is your github author name?'
+    read -e git_authorname
+    user ' - What is your github author email?'
+    read -e git_authoremail
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+
+    success 'gitconfig'
+  fi
+}
+
+
+link_file () {
+  local src=$1 dst=$2
+
+  local overwrite= backup= skip=
+  local action=
+
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  then
+
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+    then
+
+      local currentSrc="$(readlink $dst)"
+
+      if [ "$currentSrc" == "$src" ]
+      then
+
+        skip=true;
+
+      else
+
+        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        read -n 1 action
+
+        case "$action" in
+          o )
+            overwrite=true;;
+          O )
+            overwrite_all=true;;
+          b )
+            backup=true;;
+          B )
+            backup_all=true;;
+          s )
+            skip=true;;
+          S )
+            skip_all=true;;
+          * )
+            ;;
+        esac
+
+      fi
+
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ "$overwrite" == "true" ]
+    then
+      rm -rf "$dst"
+      success "removed $dst"
+    fi
+
+    if [ "$backup" == "true" ]
+    then
+      mv "$dst" "${dst}.backup"
+      success "moved $dst to ${dst}.backup"
+    fi
+
+    if [ "$skip" == "true" ]
+    then
+      success "skipped $src"
+    fi
+  fi
+
+  if [ "$skip" != "true" ]  # "false" or empty
+  then
+    ln -s "$1" "$2"
+    success "linked $1 to $2"
+  fi
+}
+
+link_dotfiles () {
+  info 'linking dotfiles'
+
+  local overwrite_all=false backup_all=false skip_all=false
+
+  for src in $(find -H "$DOTFILES_ROOT" -name "*.symlink" -mindepth 1 -maxdepth 3 -not -path '*.git*')
+  do
+    # remove working dir
+    local_dir="${src#"$PWD"}"
+    # remove preceding folder from path (root folder in this repo)
+    subpath="${local_dir#/*/}"
+    # remove .symlink ext
+    dst="$HOME/${subpath%.*}"
+    link_file "$src" "$dst"
+  done
+  cd "$DOTFILES_ROOT"
+}
+
+link_dirs () {
+  info 'linking directories'
+
+  local overwrite_all=false backup_all=false skip_all=false
+
+  for dir in $(find -H "$DOTFILES_ROOT" -type d -maxdepth 3 -mindepth 2 -name '*.symlink' -not -path '*.git*')
+  do
+    prefix="$HOME/$(basename "${dir%.*}")"
+    mkdir -p "$prefix"
+    for src in $(find -H "$dir" -type f -name '*.symlink')
+    do
+      dst="$prefix/$(basename "${src%.*}")"
+      link_file "$src" "$dst"
+    done
+  done
+}
+
+link_vim_colors () {
+  info 'linking vim colors'
+
+  local dest="$HOME/.vim"
+
+  rm -rf "$dest/colors"
+  ln -s "$DOTFILES_ROOT/vim/colors" "$dest"
+
+  success "vim colors linked"
+}
+
+setup_gitconfig
+link_dotfiles
+link_dirs
+link_vim_colors
+
+info "installing..."
+# find the installers and run them iteratively
+find . -name install.sh -exec bash {} \;
+
+# Run Homebrew through the Brewfile
+# info "brew bundle"
+# brew bundle check || brew bundle || true
+
+# echo "› sudo softwareupdate -i -a"
+# sudo softwareupdate -i -a
+
+success "installation complete"

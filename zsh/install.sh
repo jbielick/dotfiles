@@ -49,8 +49,6 @@ main() {
   fi
 
   if [ -d "$ZSH" ]; then
-    printf "${YELLOW}You already have Oh My Zsh installed.${NORMAL}\n"
-    printf "You'll need to remove $ZSH if you want to re-install.\n"
     exit
   fi
 

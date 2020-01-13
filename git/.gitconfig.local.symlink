@@ -1,0 +1,5 @@
+[user]
+        name = Josh Bielick
+        email = jbielick@gmail.com
+[credential]
+        helper = osxkeychain

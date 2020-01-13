@@ -1,0 +1,71 @@
+# Local/private config goes in the include
+[include]
+  path = ~/.gitconfig.local
+[user]
+  email = jbielick@gmail.com
+  name = Josh Bielick
+	signingkey = 3DA8A86A1E1EF5D5
+[hub]
+  protocol = https
+[help]
+  autocorrect = 1
+[core]
+  excludesfile = /Users/jbielick/.gitignore_global
+  editor = vim
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
+[difftool]
+  prompt = false
+[mergetool]
+  keepBackup = false
+[color]
+  diff = auto
+  branch = auto
+  ui = always
+  status = always
+[alias]
+  st = status
+  sh = show
+  chk = checkout
+  cp = cherry-pick
+  conflicts = diff --name-only --diff-filter=U
+  praise = blame
+  graph = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+  alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  recent = "!f() {\
+                git for-each-ref --count=$1 --sort=-committerdate refs/heads/ --format='%(refname:short)'; \
+           }; f"
+  co = checkout
+  promote = !$ZSH/bin/git-promote
+  wtf = !$ZSH/bin/git-wtf
+  rank-contributors = !$ZSH/bin/git-rank-contributors
+  upush = !git pull -r origin --autostash && git push origin
+  count = !git shortlog -sn
+[push]
+  default = simple
+[merge]
+  ff = false
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+[pull]
+  default = current
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
+[apply]
+  whitespace = nowarn
+[gpg]
+	program = /usr/local/bin/gpg2
+[commit]
+	gpgsign = true

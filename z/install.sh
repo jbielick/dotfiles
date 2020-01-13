@@ -1,3 +1,3 @@
 set -e
 
-brew install z
+brew list z 2>&1 > /dev/null || brew install z
