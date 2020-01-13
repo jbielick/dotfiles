@@ -12,3 +12,6 @@ find . -name install.sh -exec bash {} \;
 # Run Homebrew through the Brewfile
 echo "› brew bundle"
 brew bundle check || brew bundle || true
+
+# echo "› sudo softwareupdate -i -a"
+# sudo softwareupdate -i -a

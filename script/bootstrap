@@ -137,16 +137,21 @@ install_dotfiles () {
   done
 }
 
+install_nested_configs () {
+  info 'installing configs'
 
-install_sublime_prefs () {
-  info 'installing sublime prefs'
+  local overwrite_all=false backup_all=false skip_all=false
 
-  local dest="$HOME/Library/Application Support/Sublime Text 3/Packages"
-
-  rm -rf "$dest/User"
-  ln -s "$DOTFILES_ROOT/sublime/User" "$dest"
-
-  success "sublime prefs linked"
+  for dir in $(find -H "$DOTFILES_ROOT" -type d -maxdepth 3 -mindepth 2 -name '*.symlink' -not -path '*.git*')
+  do
+    prefix="$HOME/$(basename "${dir%.*}")"
+    mkdir -p "$prefix"
+    for src in $(find -H "$dir" -type f -name '*.symlink')
+    do
+      dst="$prefix/$(basename "${src%.*}")"
+      link_file "$src" "$dst"
+    done
+  done
 }
 
 link_vim_colors () {
@@ -162,7 +167,7 @@ link_vim_colors () {
 
 setup_gitconfig
 install_dotfiles
-install_sublime_prefs
+install_nested_configs
 link_vim_colors
 
 # If we're on a Mac, let's install and setup homebrew.
