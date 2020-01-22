@@ -1,7 +1,7 @@
 cask_args appdir: '/Applications'
 
 tap 'homebrew/bundle'
-tap 'caskroom/cask'
+tap 'homebrew/cask-cask'
 
 brew 'ack'
 brew 'ansible'
@@ -37,8 +37,5 @@ cask 'slack'
 cask 'spectacle'
 cask 'spotify'
 cask 'sublime-text'
-cask 'transmission'
-cask 'tunnelbear'
-cask 'vagrant'
+cask 'tunnelblick'
 cask 'vlc'
-cask 'virtualbox'
