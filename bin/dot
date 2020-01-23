@@ -7,6 +7,10 @@
 
 set -e
 
+# Run Homebrew through the Brewfile
+# info "brew bundle"
+brew bundle check || brew bundle || true
+
 cd "$(dirname "$0")/.."
 
 export ZSH=$HOME/.dotfiles
@@ -187,10 +191,6 @@ link_vim_colors
 info "installing..."
 # find the installers and run them iteratively
 find . -name install.sh -exec bash {} \;
-
-# Run Homebrew through the Brewfile
-# info "brew bundle"
-# brew bundle check || brew bundle || true
 
 # echo "› sudo softwareupdate -i -a"
 # sudo softwareupdate -i -a

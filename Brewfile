@@ -1,13 +1,13 @@
 cask_args appdir: '/Applications'
 
 tap 'homebrew/bundle'
-tap 'homebrew/cask-cask'
+tap "homebrew/cask"
 
 brew 'ack'
 brew 'ansible'
 brew 'colordiff'
 brew 'coreutils'
-brew 'ffmpeg', args: %w(with-libvpx with-libvorbis with-fdk-aac with-opus)
+brew 'ffmpeg'
 brew 'gettext'
 brew 'go'
 brew 'grc'
@@ -19,13 +19,13 @@ brew 'openssl'
 brew 'node'
 brew 'readline'
 brew 'ruby-build'
-# brew 'rvm'
 brew 'siege'
 brew 'tree'
 brew 'watch'
 brew 'wget'
 
-cask '1password'
+mas '1password', id: 1333542190
+cask 'docker'
 cask 'firefox'
 cask 'flux'
 cask 'google-chrome'
