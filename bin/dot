@@ -7,9 +7,6 @@
 
 set -e
 
-# Run Homebrew through the Brewfile
-# info "brew bundle"
-brew bundle check || brew bundle || true
 
 cd "$(dirname "$0")/.."
 
@@ -18,6 +15,12 @@ DOTFILES_ROOT=$(pwd -P)
 
 # Set macOS defaults
 $ZSH/macos/set-defaults.sh
+
+HOMEBREW_BUNDLE_FILE="$DOTFILES_ROOT/Brewfile"
+
+# Run Homebrew through the Brewfile
+# info "brew bundle"
+brew bundle check || brew bundle || true
 
 echo ''
 
@@ -142,7 +145,7 @@ link_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -name "*.symlink" -mindepth 1 -maxdepth 3 -not -path '*.git*')
+  for src in $(find -H "$DOTFILES_ROOT" -name "*.symlink" -mindepth 1 -maxdepth 3 -not -path '*.git')
   do
     # remove working dir
     local_dir="${src#"$PWD"}"

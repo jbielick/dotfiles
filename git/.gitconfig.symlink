@@ -2,9 +2,7 @@
 [include]
   path = ~/.gitconfig.local
 [user]
-  email = jbielick@gmail.com
-  name = Josh Bielick
-	signingkey = 3DA8A86A1E1EF5D5
+  signingkey = 3DA8A86A1E1EF5D5
 [hub]
   protocol = https
 [help]
@@ -12,7 +10,7 @@
 [core]
   excludesfile = /Users/jbielick/.gitignore_global
   editor = vim
-  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -+F -+X
+	pager = diff-highlight | less -+F -+X
 [difftool]
   prompt = false
 [mergetool]
@@ -66,6 +64,6 @@
 [apply]
   whitespace = nowarn
 [gpg]
-	program = /usr/local/bin/gpg2
+	program = /usr/local/bin/gpg
 [commit]
 	gpgsign = true
