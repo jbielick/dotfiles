@@ -30,7 +30,7 @@
   graph = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
   alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
   recent = "!f() {\
-                git for-each-ref --count=$1 --sort=-committerdate refs/heads/ --format='%(refname:short)'; \
+                git for-each-ref --count=${1:-10} --sort=-committerdate refs/heads/ --format='%(refname:short)'; \
            }; f"
   co = checkout
   promote = !$ZSH/bin/git-promote
@@ -38,6 +38,9 @@
   rank-contributors = !$ZSH/bin/git-rank-contributors
   upush = !git pull -r origin --autostash && git push origin
   count = !git shortlog -sn
+  watch = !watch --color -n1 git -c color.status=always status
+  pa = pr --autostash
+  pr = !git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
 [push]
   default = simple
 [merge]
