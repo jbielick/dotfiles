@@ -1,13 +1,5 @@
 if [ -z "$(which diff-highlight)" ]; then
-
-  diffh_path=$(find /usr/local -type f -name "diff-highlight")
-
-  if [ -z "$diffh_path" ]; then
-    echo 'could not find diff-highlight'
-  else
-    ln -s "$diffh_path" /usr/local/bin/diff-highlight
-  fi
-
+  sudo easy_install diff-highlight
 fi
 
 gpg_path=$(which gpg)

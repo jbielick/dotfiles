@@ -135,6 +135,7 @@ link_file () {
 
   if [ "$skip" != "true" ]  # "false" or empty
   then
+    mkdir -p "$(dirname $2)"
     ln -s "$1" "$2"
     success "linked $1 to $2"
   fi
@@ -189,7 +190,7 @@ link_vim_colors () {
 setup_gitconfig
 link_dotfiles
 link_dirs
-link_vim_colors
+# link_vim_colors
 
 info "installing..."
 # find the installers and run them iteratively
