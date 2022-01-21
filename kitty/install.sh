@@ -1,3 +1,3 @@
-if ! command -v kitty > /dev/null 2>&1; then
+if ! [ -d /Applications/kitty.app ]; then
   brew install --cask kitty
 fi

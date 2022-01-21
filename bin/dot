@@ -5,13 +5,19 @@
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-set -e
-
+set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
 export ZSH=$HOME/.dotfiles
 DOTFILES_ROOT=$(pwd -P)
+
+function print_error {
+    read line file <<<"$(caller)"
+    echo "An error occurred in line $line of file $file:" >&2
+    sed "${line}q;d" "$file" >&2
+}
+trap print_error ERR
 
 # Set macOS defaults
 $ZSH/macos/set-defaults.sh
@@ -42,54 +48,30 @@ fail () {
   exit
 }
 
-setup_gitconfig () {
-  if ! [ -f git/.gitconfig.local.symlink ]
-  then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
-    success 'gitconfig'
-  fi
-}
-
 
 link_file () {
-  local src=$1 dst=$2
+  local src=$1
+  local dst=$2
+  local current_src
+  local overwrite
+  local backup
+  local skip
+  local action
 
-  local overwrite= backup= skip=
-  local action=
+  if [ -L "$dst" ]; then
+    current_src="$(readlink "$dst")"
+  else
+    current_src=""
+  fi
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-  then
-
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
-
-      local currentSrc="$(readlink $dst)"
-
-      if [ "$currentSrc" == "$src" ]
-      then
-
+  if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]; then
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+      if [ "$current_src" == "$src" ]; then
         skip=true;
-
       else
-
         user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
-
         case "$action" in
           o )
             overwrite=true;;
@@ -133,9 +115,10 @@ link_file () {
     fi
   fi
 
-  if [ "$skip" != "true" ]  # "false" or empty
-  then
-    mkdir -p "$(dirname $2)"
+  if [ "$skip" != "true" ]; then
+    if [ "$(dirname "$dst")" != "$HOME" ]; then
+      mkdir -p "$(dirname "$dst")"
+    fi
     ln -s "$1" "$2"
     success "linked $1 to $2"
   fi
@@ -187,16 +170,12 @@ link_vim_colors () {
   success "vim colors linked"
 }
 
-setup_gitconfig
 link_dotfiles
 link_dirs
 # link_vim_colors
 
 info "installing..."
-# find the installers and run them iteratively
-find . -name install.sh -exec bash {} \;
 
-# echo "› sudo softwareupdate -i -a"
-# sudo softwareupdate -i -a
+find . -name install.sh -exec bash {} \;
 
 success "installation complete"
