@@ -22,10 +22,10 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'git://github.com/airblade/vim-gitgutter.git'
-Plugin 'git://github.com/scrooloose/nerdtree.git'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/nerdtree'
 Plugin 'fatih/vim-go'
-Plugin 'git://github.com/ctrlpvim/ctrlp.vim.git'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
