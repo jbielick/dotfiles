@@ -1,5 +1,1 @@
-#!/usr/bin/env bash
-
-set -e
-
-command -v z >/dev/null || brew install z
+[[ -f $HOMEBREW_PREFIX/etc/profile.d/z.sh ]] || brew install z

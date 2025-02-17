@@ -177,6 +177,6 @@ link_dirs
 
 info "installing..."
 
-find . -name install.sh -exec bash {} \;
+find . -name install.sh -exec /usr/bin/env bash {} \;
 
 success "installation complete"
