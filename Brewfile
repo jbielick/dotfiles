@@ -5,6 +5,7 @@ tap "homebrew/cask"
 
 brew 'colordiff'
 brew 'coreutils'
+brew 'diff-so-fancy'
 brew 'ffmpeg'
 brew 'gettext'
 brew 'gpg2'
@@ -34,5 +35,4 @@ cask 'kitty'
 cask 'slack'
 cask 'rectangle'
 cask 'spotify'
-cask 'sublime-text'
 cask 'vlc'

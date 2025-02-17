@@ -10,7 +10,7 @@
 [core]
   excludesfile = /Users/jbielick/.gitignore_global
   editor = vim
-	pager = diff-highlight | less -+F -+X
+	pager = diff-so-fancy | less --tabs=4 -RF
 [difftool]
   prompt = false
 [mergetool]
@@ -18,7 +18,7 @@
 [color]
   diff = auto
   branch = auto
-  ui = always
+	ui = true
   status = always
 [alias]
   st = status
@@ -57,20 +57,25 @@
   autostash = true
   rebase = true
 [color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
 [color "diff"]
-  commit = green
-  meta = yellow
-  frag = cyan
-  old = red
-  new = green
-  whitespace = red reverse
+	commit = yellow bold
+	meta = 11
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+	func = 146 bold
 [apply]
   whitespace = nowarn
 [commit]
 	gpgsign = true
 [gpg]
 	program = /run/current-system/sw/bin/gpg
+[init]
+	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch

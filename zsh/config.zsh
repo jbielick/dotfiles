@@ -31,10 +31,9 @@ setopt HIST_REDUCE_BLANKS
 #   like: git comm-[tab]
 setopt complete_aliases
 
-# not necessary as of Sierra?
-# bindkey '[C' forward-word
-# bindkey '[D' backward-word
-# bindkey '^[[5D' beginning-of-line
-# bindkey '^[[5C' end-of-line
-# bindkey '^[[3~' delete-char
-# bindkey '^?' backward-delete-char
+bindkey '[C' forward-word
+bindkey '[D' backward-word
+bindkey '^[[5D' beginning-of-line
+bindkey '^[[5C' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^?' backward-delete-char

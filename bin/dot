@@ -55,8 +55,9 @@ link_file () {
   local current_src
   local overwrite
   local backup
-  local skip
+  local skip=false
   local action
+  local skip_all=false
 
   if [ -L "$dst" ]; then
     current_src="$(readlink "$dst")"
